@@ -2,6 +2,7 @@ package com.tests.springbootselenium.configuration;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,9 @@ public class SeleniumConfig {
     @Value("${chrome.driver.path}")
     private String chromeDriverPath;
 
+    @Value("${firefoxDriver.driver.path}")
+    private String firefoxDriverPath;
+
 
     @Lazy
     @Bean
@@ -29,6 +33,13 @@ public class SeleniumConfig {
     public WebDriver chromeDriver() {
         System.setProperty("webdriver.chrome.driver", chromeDriverPath);
         return new ChromeDriver();
+    }
+
+    @Lazy
+    @Bean
+    public WebDriver geckodriver() {
+        System.setProperty("webdriver.gecko.driver", firefoxDriverPath);
+        return new FirefoxDriver();
     }
 }
 
